@@ -15,6 +15,11 @@
 		4005A1391EB8DC6400BE2250 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4005A1371EB8DC6400BE2250 /* LaunchScreen.storyboard */; };
 		4005A1441EB8DC6400BE2250 /* ManagementEventCollectionViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4005A1431EB8DC6400BE2250 /* ManagementEventCollectionViewTests.swift */; };
 		4005A14F1EB8DC6400BE2250 /* ManagementEventCollectionViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4005A14E1EB8DC6400BE2250 /* ManagementEventCollectionViewUITests.swift */; };
+		4005A15D1EB8DD8D00BE2250 /* MyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4005A15C1EB8DD8D00BE2250 /* MyCollectionViewCell.swift */; };
+		4005A1611EB8E04E00BE2250 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4005A15F1EB8E04E00BE2250 /* Event.swift */; };
+		4005A1621EB8E04E00BE2250 /* EventLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4005A1601EB8E04E00BE2250 /* EventLine.swift */; };
+		4005A1661EB8FBB900BE2250 /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4005A1651EB8FBB900BE2250 /* SectionHeaderView.swift */; };
+		4005A1681EB907F600BE2250 /* EventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4005A1671EB907F600BE2250 /* EventDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +54,11 @@
 		4005A14A1EB8DC6400BE2250 /* ManagementEventCollectionViewUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ManagementEventCollectionViewUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4005A14E1EB8DC6400BE2250 /* ManagementEventCollectionViewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagementEventCollectionViewUITests.swift; sourceTree = "<group>"; };
 		4005A1501EB8DC6400BE2250 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4005A15C1EB8DD8D00BE2250 /* MyCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCollectionViewCell.swift; sourceTree = "<group>"; };
+		4005A15F1EB8E04E00BE2250 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		4005A1601EB8E04E00BE2250 /* EventLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventLine.swift; sourceTree = "<group>"; };
+		4005A1651EB8FBB900BE2250 /* SectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionHeaderView.swift; sourceTree = "<group>"; };
+		4005A1671EB907F600BE2250 /* EventDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,9 +109,13 @@
 		4005A12A1EB8DC6400BE2250 /* ManagementEventCollectionView */ = {
 			isa = PBXGroup;
 			children = (
+				4005A15E1EB8E03800BE2250 /* Model */,
 				4005A12B1EB8DC6400BE2250 /* AppDelegate.swift */,
 				4005A12D1EB8DC6400BE2250 /* ViewController.swift */,
 				4005A12F1EB8DC6400BE2250 /* Main.storyboard */,
+				4005A1671EB907F600BE2250 /* EventDetailViewController.swift */,
+				4005A1651EB8FBB900BE2250 /* SectionHeaderView.swift */,
+				4005A15C1EB8DD8D00BE2250 /* MyCollectionViewCell.swift */,
 				4005A1351EB8DC6400BE2250 /* Assets.xcassets */,
 				4005A1371EB8DC6400BE2250 /* LaunchScreen.storyboard */,
 				4005A13A1EB8DC6400BE2250 /* Info.plist */,
@@ -126,6 +140,15 @@
 				4005A1501EB8DC6400BE2250 /* Info.plist */,
 			);
 			path = ManagementEventCollectionViewUITests;
+			sourceTree = "<group>";
+		};
+		4005A15E1EB8E03800BE2250 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4005A15F1EB8E04E00BE2250 /* Event.swift */,
+				4005A1601EB8E04E00BE2250 /* EventLine.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -264,7 +287,12 @@
 			files = (
 				4005A1341EB8DC6400BE2250 /* ManagementEventCollectionView.xcdatamodeld in Sources */,
 				4005A12E1EB8DC6400BE2250 /* ViewController.swift in Sources */,
+				4005A1621EB8E04E00BE2250 /* EventLine.swift in Sources */,
+				4005A15D1EB8DD8D00BE2250 /* MyCollectionViewCell.swift in Sources */,
+				4005A1661EB8FBB900BE2250 /* SectionHeaderView.swift in Sources */,
 				4005A12C1EB8DC6400BE2250 /* AppDelegate.swift in Sources */,
+				4005A1681EB907F600BE2250 /* EventDetailViewController.swift in Sources */,
+				4005A1611EB8E04E00BE2250 /* Event.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
