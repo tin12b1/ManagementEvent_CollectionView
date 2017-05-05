@@ -12,6 +12,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
 
     @IBOutlet var MyCollectionView: UICollectionView!
     
+    
+    
     lazy var eventLines: [EventLine] = {
         return EventLine.eventLines()
     }()
@@ -21,6 +23,9 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         // Do any additional setup after loading the view, typically from a nib.
         self.MyCollectionView.delegate = self
         self.MyCollectionView.dataSource = self
+        //self.navigationItem.leftBarButtonItem = self.editButtonItem
+
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -71,6 +76,13 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         self.navigationController?.pushViewController(detailVC, animated: true)
     }
     
+    func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let eventLine1 = eventLines[sourceIndexPath.section]
+        let eventLine2 = eventLines[destinationIndexPath.section]
+        let event = eventLine1.events[sourceIndexPath.row]
+        eventLine1.events.remove(at: sourceIndexPath.row)
+        eventLine2.events.insert(event, at: destinationIndexPath.row)
+    }
     
 }
 
