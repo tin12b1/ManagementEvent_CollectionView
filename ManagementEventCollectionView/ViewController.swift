@@ -12,8 +12,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
 
     @IBOutlet var MyCollectionView: UICollectionView!
     
-    
-    
     lazy var eventLines: [EventLine] = {
         return EventLine.eventLines()
     }()
@@ -23,9 +21,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         // Do any additional setup after loading the view, typically from a nib.
         self.MyCollectionView.delegate = self
         self.MyCollectionView.dataSource = self
-        //self.navigationItem.leftBarButtonItem = self.editButtonItem
-
-
     }
 
     override func didReceiveMemoryWarning() {
@@ -68,12 +63,34 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let eventLine = eventLines[indexPath.section]
-        let event = eventLine.events[indexPath.row]
-        let detailVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "EventDetail") as! EventDetailViewController
-        detailVC.day = eventLine.day
-        detailVC.event = event
-        self.navigationController?.pushViewController(detailVC, animated: true)
+        
+        let questionController = UIAlertController(title: "What you wanna do?", message: nil, preferredStyle: .alert)
+        questionController.addAction(UIAlertAction(title: "Delete Event", style: .default, handler: {
+            (action:UIAlertAction!) -> Void in
+            print("Delete")
+            let eventLine = self.eventLines[indexPath.section]
+            eventLine.events.remove(at: indexPath.row)
+            self.MyCollectionView.deleteItems(at: [indexPath])
+        }))
+        
+        questionController.addAction(UIAlertAction(title: "Event Detail", style: .default, handler: {
+            (action:UIAlertAction!) -> Void in
+            print("Event Detail")
+            let eventLine = self.eventLines[indexPath.section]
+            let event = eventLine.events[indexPath.row]
+            let detailVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "EventDetail") as! EventDetailViewController
+            detailVC.day = eventLine.day
+            detailVC.event = event
+            self.navigationController?.pushViewController(detailVC, animated: true)
+        }))
+        
+        questionController.addAction(UIAlertAction(title: "Reload", style: .default, handler: {
+            (action:UIAlertAction!) -> Void in
+            print("Reload")
+            self.MyCollectionView.reloadData()
+        }))
+        
+        present(questionController, animated: true, completion: nil)
     }
     
     func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
@@ -83,6 +100,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         eventLine1.events.remove(at: sourceIndexPath.row)
         eventLine2.events.insert(event, at: destinationIndexPath.row)
     }
-    
+
 }
 
