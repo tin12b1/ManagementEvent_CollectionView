@@ -22,7 +22,7 @@ class EventLine
     
     class func eventLines() -> [EventLine]
     {
-        return [self.Monday(), self.Tuesday(), self.Wednesday(), self.Thusday(), self.Friday(), self.Saturday(), self.Sunday()]
+        return [self.Sunday(), self.Monday(), self.Tuesday(), self.Wednesday(), self.Thusday(), self.Friday(), self.Saturday()]
     }
     
     private class func Monday() -> EventLine

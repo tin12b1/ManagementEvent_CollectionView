@@ -64,7 +64,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let questionController = UIAlertController(title: "What you wanna do?", message: nil, preferredStyle: .alert)
+        let questionController = UIAlertController(title: "What you want to do?", message: nil, preferredStyle: .alert)
         questionController.addAction(UIAlertAction(title: "Delete Event", style: .default, handler: {
             (action:UIAlertAction!) -> Void in
             print("Delete")
@@ -99,6 +99,17 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         let event = eventLine1.events[sourceIndexPath.row]
         eventLine1.events.remove(at: sourceIndexPath.row)
         eventLine2.events.insert(event, at: destinationIndexPath.row)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        //if flag is true, reload data
+        if TempEvent.check {
+            let eventLine = eventLines[TempEvent.day]
+            eventLine.events.append(TempEvent.event)
+            MyCollectionView.reloadData()
+            TempEvent.check = false
+        }
+        super.viewWillAppear(true)
     }
 
 }

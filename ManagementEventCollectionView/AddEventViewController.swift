@@ -2,67 +2,108 @@
 //  AddEventViewController.swift
 //  ManagementEventCollectionView
 //
-//  Created by Cntt02 on 5/6/17.
+//  Created by Cntt12 on 5/13/17.
 //  Copyright © 2017 Tran Van Tin. All rights reserved.
 //
 
 import UIKit
 
-class AddEventViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class AddEventViewController: UIViewController {
 
-    @IBOutlet weak var dayPicker: UIPickerView!
-    @IBOutlet weak var txtTitle: UITextField!
-    @IBOutlet weak var txtDescription: UITextView!
-    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
+    @IBOutlet var txtDescription: UITextView!
+    @IBOutlet var txtTitle: UITextField!
+    @IBOutlet var lblDay: UILabel!
     
-    lazy var eventLines: [EventLine] = {
-        return EventLine.eventLines()
-    }()
+    @IBOutlet var btmConstraint: NSLayoutConstraint!
     
-    let weekDays = ["Monday", "Tuesday", "Wedneday", "Thusday", "Friday", "Saturday", "Sunday"]
-    var day = 0
     var keyboardIsShow = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        title = "Add Event"
+        lblDay.text = dayOfWeek()
+        
         NotificationCenter.default.addObserver(self, selector: #selector(AddEventViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        
         NotificationCenter.default.addObserver(self, selector: #selector(AddEventViewController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         // Do any additional setup after loading the view.
     }
     
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return weekDays[row]
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return weekDays.count
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        day = row
-    }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     @IBAction func btnSave(_ sender: Any) {
-        let eventLine = eventLines[day]
-        eventLine.events.append(Event(titled: txtTitle.text!, description: txtDescription.text!, image: #imageLiteral(resourceName: "default")))
-        print("Add Success")
-        self.navigationController?.popViewController(animated: true)
+        if txtTitle.text!.isEmpty || txtDescription.text!.isEmpty {
+            // Thong bao nhap thieu thong tin
+            let alert = UIAlertController(title: "Error", message: "Missing Information!", preferredStyle: UIAlertControllerStyle.alert);
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil));
+            self.present(alert, animated: true, completion: nil);
+        }
+        else {
+            TempEvent.check = true
+            let event: Event = Event(titled: txtTitle.text!, description: txtDescription.text!, image: #imageLiteral(resourceName: "default"))
+            TempEvent.event = event
+            TempEvent.day = getDayOfWeek(currentDate()!)! - 1
+            self.navigationController?.popViewController(animated: true)
+        }
     }
-
-    @IBAction func btnCancel(_ sender: Any) {
+    
+    func getDayOfWeek(_ today:String) -> Int? {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        guard let todayDate = formatter.date(from: today) else { return nil }
+        let myCalendar = Calendar(identifier: .gregorian)
+        let weekDay = myCalendar.component(.weekday, from: todayDate)
+        return weekDay
     }
-
+    
+    func currentDate() -> String? {
+        let currentDate = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        let date = formatter.string(from: currentDate)
+        return date
+    }
+    
+    func dayOfWeek() -> String? {
+        let day = getDayOfWeek(currentDate()!)
+        if day == 1 {
+            return "Sunday"
+        } else if day == 2 {
+            return "Monday"
+        } else if day == 3 {
+            return "Tuesday"
+        } else if day == 4 {
+            return "Wednesday"
+        } else if day == 5 {
+            return "Thusday"
+        } else if day == 6 {
+            return "Friday"
+        } else {
+            return "Saturday"
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        txtTitle.resignFirstResponder()
+        txtDescription.resignFirstResponder()
+        return true
+    }
+    
+    @IBAction func userTappedBackground(sender: AnyObject){
+        txtTitle.resignFirstResponder()
+        txtDescription.resignFirstResponder()
+    }
+    
+    @IBAction func userTappedBackground(_ sender: Any) {
+        view.endEditing(true)
+    }
+    
     func keyboardWillShow(notification:NSNotification) {
+        
+        //Nếu keyboard đã mơ rồi thì không thực hiện đẩy nữa
         if !keyboardIsShow {
             adjustingHeight(show: true, notification: notification)
             keyboardIsShow = true
@@ -77,6 +118,7 @@ class AddEventViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         
     }
     
+    //thay đổi thông số của constrant bottomConstraint để nó nằm trên bàn phím ảo
     func adjustingHeight(show:Bool, notification:NSNotification) {
         var userInfo = notification.userInfo!
         let keyboardFrame:CGRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
@@ -86,27 +128,10 @@ class AddEventViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         let changeInHeight = (keyboardFrame.height) * (show ? 1 : -1)
         
         UIView.animate(withDuration: animationDurarion, animations: { () -> Void in
-            self.bottomConstraint.constant += changeInHeight
+            self.btmConstraint.constant += changeInHeight
         })
         
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
-    }
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
