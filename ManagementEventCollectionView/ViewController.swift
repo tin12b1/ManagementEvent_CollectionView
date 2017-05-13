@@ -63,7 +63,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        // Xoá event
         let questionController = UIAlertController(title: "What you want to do?", message: nil, preferredStyle: .alert)
         questionController.addAction(UIAlertAction(title: "Delete Event", style: .default, handler: {
             (action:UIAlertAction!) -> Void in
@@ -72,7 +72,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             eventLine.events.remove(at: indexPath.row)
             self.MyCollectionView.deleteItems(at: [indexPath])
         }))
-        
+        // Thông tin chi tiết event
         questionController.addAction(UIAlertAction(title: "Event Detail", style: .default, handler: {
             (action:UIAlertAction!) -> Void in
             print("Event Detail")
@@ -93,16 +93,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         present(questionController, animated: true, completion: nil)
     }
     
-    func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        let eventLine1 = eventLines[sourceIndexPath.section]
-        let eventLine2 = eventLines[destinationIndexPath.section]
-        let event = eventLine1.events[sourceIndexPath.row]
-        eventLine1.events.remove(at: sourceIndexPath.row)
-        eventLine2.events.insert(event, at: destinationIndexPath.row)
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
-        //if flag is true, reload data
+        // Thêm event
         if TempEvent.check {
             let eventLine = eventLines[TempEvent.day]
             eventLine.events.append(TempEvent.event)

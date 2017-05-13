@@ -97,6 +97,7 @@ class AddEventViewController: UIViewController {
         txtDescription.resignFirstResponder()
     }
     
+    // Khi người dùng tap background thì ẩn bàn phím
     @IBAction func userTappedBackground(_ sender: Any) {
         view.endEditing(true)
     }

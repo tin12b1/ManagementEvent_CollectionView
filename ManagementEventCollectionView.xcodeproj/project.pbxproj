@@ -116,11 +116,7 @@
 				B5E0535E1EC6B5360054162B /* Controller */,
 				4005A15E1EB8E03800BE2250 /* Model */,
 				4005A12B1EB8DC6400BE2250 /* AppDelegate.swift */,
-				4005A12D1EB8DC6400BE2250 /* ViewController.swift */,
 				4005A12F1EB8DC6400BE2250 /* Main.storyboard */,
-				4005A1671EB907F600BE2250 /* EventDetailViewController.swift */,
-				4005A1651EB8FBB900BE2250 /* SectionHeaderView.swift */,
-				4005A15C1EB8DD8D00BE2250 /* MyCollectionViewCell.swift */,
 				4005A1351EB8DC6400BE2250 /* Assets.xcassets */,
 				4005A1371EB8DC6400BE2250 /* LaunchScreen.storyboard */,
 				4005A13A1EB8DC6400BE2250 /* Info.plist */,
@@ -161,6 +157,10 @@
 			isa = PBXGroup;
 			children = (
 				B5E0535F1EC6B55B0054162B /* AddEventViewController.swift */,
+				4005A12D1EB8DC6400BE2250 /* ViewController.swift */,
+				4005A1671EB907F600BE2250 /* EventDetailViewController.swift */,
+				4005A1651EB8FBB900BE2250 /* SectionHeaderView.swift */,
+				4005A15C1EB8DD8D00BE2250 /* MyCollectionViewCell.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
